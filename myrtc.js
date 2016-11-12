@@ -1,5 +1,8 @@
 'use strict';
 
+// TODO: on mouse over of a message, highlight all messages from that user
+// TODO: multiple data channels for 
+
 const input = document.querySelector('#input');
 const button = document.querySelector('#button');
 const messages = document.querySelector('#messages');
@@ -107,7 +110,7 @@ function random(size) {
 function broadcast(message) {
   var connections = peer.connections;
 
-  // TODO: set to pending (add spinner overlay)
+  // TODO: set to pending (add progress overlay)
   onDataHandler(message);
 
   Object.keys(connections).forEach(function(id) {
@@ -116,7 +119,7 @@ function broadcast(message) {
     connection.send(message);
   });
 
-  // TODO: set to not pending (remove spinner overlay)
+  // TODO: set to not pending (remove progress overlay)
 }
 
 function reconnect() {
