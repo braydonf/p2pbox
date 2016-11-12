@@ -45,10 +45,22 @@ window.connect = function() {
 };
 
 function onDataHandler(data) {
-  console.log(data);
-  var message = document.createElement('div');
-  message.innerText = data;
-  messages.appendChild(message);
+  // console.log(data);
+  var blob = new Blob([data], {type: 'application/octet-stream'});
+  var fileReader = new FileReader();
+  fileReader.onload = function() {
+    var img = document.createElement('img');
+    var anchor = document.createElement('a');
+    anchor.href = fileReader.result;
+    anchor.download = 'file.jpg';
+    anchor.appendChild(img);
+    img.src = fileReader.result;
+    // var message = document.createElement('div');
+    // message.innerText = data;
+    // messages.appendChild(message);
+    messages.appendChild(anchor);
+  };
+  fileReader.readAsDataURL(blob);
 }
 
 function registerDataHandler(conn) {
