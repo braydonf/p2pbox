@@ -42,14 +42,12 @@ window.connect = function() {
 function onDataHandler(data) {
   console.log(data);
   var message = document.createElement('div');
-  messages.
+  message.innerText = data;
+  messages.appendChild(message);
 }
 
 function registerDataHandler(conn) {
-  conn.send('hi there!');
-  conn.on('data', function(data) {
-    console.log('data:', data)
-  })
+  conn.on('data', onDataHandler)
 }
 
 function connectPeers(callback) {
