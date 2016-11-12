@@ -11,6 +11,7 @@ const messages = document.querySelector('#messages');
 
 const hostname = window.location.hostname;
 const port = window.location.port || 80;
+const path = window.location.path || random(20);
 
 var peerIds, peer, submitClickHandler, pollId;
 
@@ -43,7 +44,7 @@ window.connect = function() {
 
   peer.on('connection', function(conn) {
     console.log('connection!');
-    registerDataHandler(conn);
+    registerPeerConnHandlers(conn);
   });
 };
 
@@ -66,16 +67,16 @@ function onDataHandler(data) {
       }
     })
   });
-
-  // const packet = decodeData(data);
-
-  // TYPES[data.type](packet.content, function(element) {
-  //   messages.appendChild(element);
-  // });
 }
 
-function registerDataHandler(conn) {
-  conn.on('data', onDataHandler)
+function registerPeerConnHandlers(conn) {
+  var disconnectHandler = function() {
+    conn.close();
+  };
+
+  conn.on('data', onDataHandler);
+  conn.on('error', disconnectHandler);
+  conn.on('close', disconnectHandler);
 }
 
 function connectPeers(callback) {
@@ -91,15 +92,7 @@ function connectPeers(callback) {
 
         console.log('connecting to:', id);
         var conn = peer.connect(id);
-        var disconnectHandler = function() {
-          conn.close();
-        };
-
-        conn.on('error', disconnectHandler);
-        conn.on('close', disconnectHandler);
-
-        conn.send('hi there!');
-        conn.on('data', onDataHandler)
+        registerPeerConnHandlers(conn);
       });
     } catch (err) {
       console.error(err);
