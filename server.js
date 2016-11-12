@@ -1,5 +1,4 @@
-//var PeerServer = require('peer').PeerServer;
-//var server = PeerServer({port: 9000, path: '/myapp'});
+'use strict';
 
 var connections = {};
 
@@ -8,13 +7,16 @@ var app = express();
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var cors = require('cors');
 
+app.set('port', (process.env.PORT || 9000));
+var port = app.get('port');
+
 app.use(cors());
 app.get('/', function(req, res, next) {
   res.send('Hello world!');
 });
 
-console.info('Listening on port 9000...');
-var server = app.listen(9000);
+console.info('Listening on port ' + port + '...');
+var server = app.listen(port);
 
 var options = {
   debug: true
@@ -39,5 +41,5 @@ peerServer.on('connection', function(id) {
 });
 
 peerServer.on('disconnect', function(id) {
-  delete connections[id]
+  delete connections[id];
 });
