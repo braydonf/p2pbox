@@ -24,7 +24,6 @@ window.connect = function() {
   });
 
   peer.on('connection', function(conn) {
-    connectPeers(peer);
     console.log('connection!');
     conn.send('hi there!');
     conn.on('data', function(data) {
