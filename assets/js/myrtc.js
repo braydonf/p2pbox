@@ -7,14 +7,12 @@
 //   for all clients
 
 const input = document.querySelector('#input');
-const button = document.querySelector('#button');
 const messages = document.querySelector('#messages');
 
-var peerIds;
-var peer;
+const hostname = window.location.hostname;
+const port = window.location.port || 80;
 
-var hostname = window.location.hostname;
-var port = window.location.port || 80;
+var peerIds, peer, submitClickHandler, pollId;
 
 window.connect = function() {
   peer = new Peer(random(10), {host: hostname, port: port, path: '/peerjs'});
@@ -30,7 +28,7 @@ window.connect = function() {
   peer.on('disconnect', reconnect);
 
   connectPeers(function() {
-    button.onclick = function(event) {
+    submitClickHandler = function(event) {
       console.log('broadcasting:', input.value);
       broadcast(input.value);
     }
@@ -130,8 +128,13 @@ function reconnect() {
   }
 }
 
+function formSubmitHandler(event) {
+  event.preventDefault();
+  input.value = '';
+}
+
 
 /* --- INIT --- */
 window.connect();
 
-var pollId = setInterval(reconnect, 5000);
+pollId = setInterval(reconnect, 5000);

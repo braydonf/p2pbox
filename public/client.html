@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Test WebRTC</title>
+    <link rel="stylesheet" type="text/css" href="http://fastly.ink.sapo.pt/3.1.10/css/ink.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+    <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script>
+</head>
+<body>
+<div class="ink-grid">
+    <div class="column-group all-80">
+        <div id="messages" class="all-100">
+
+        </div>
+    </div>
+    <div id="control-panel">
+        <form class="ink-form" onsubmit="formSubmitHandler(event)" autocomplete="off">
+            <input type="text" id="input" placeholder="type some shit..."/>
+            <input type="submit" id="button" value="Send" onclick="submitClickHandler(event)"/>
+        </form>
+    </div>
+</div>
+<script src="./js/peer.js"></script>
+<script src="./js/myrtc.js"></script>
+<script src="./js/file.js"></script>
+</body>
+</html>

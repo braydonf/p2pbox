@@ -33,7 +33,8 @@ app.get('/peers', function(req, res, next) {
   res.end();
 });
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/assets'));
 
 peerServer.on('connection', function(id) {
   console.log('connection:', id);
