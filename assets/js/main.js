@@ -32,7 +32,7 @@ window.connect = function() {
       console.log('broadcasting:', input.value);
       broadcast([{
         text: input.value,
-        type: 'text'
+        type: 'text/plain'
       }]);
     }
   });
@@ -61,7 +61,7 @@ function onDataHandler(data) {
           readFile(datum.file, appendMessage);
           break;
         case 'text':
-          appendMessage(datum.text);
+          appendMessage(datum);
           break;
       }
     })

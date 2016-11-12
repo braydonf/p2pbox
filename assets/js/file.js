@@ -4,10 +4,10 @@ const TYPES = [
   // text
   {
     mime: /text\/plain/,
-    handler: function(text) {
+    handler: function(options) {
       const message = document.createElement('div');
 
-      message.innerText = text;
+      message.innerText = options.text;
       messages.appendChild(message);
     }
   },
