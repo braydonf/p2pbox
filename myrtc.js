@@ -22,6 +22,8 @@ window.connect = function() {
     console.log('error:', err);
   });
 
+  peer.on('disconnect', reconnect);
+
   connectPeers(function() {
     button.onclick = function(event) {
       console.log('broadcasting:', input.value);
@@ -105,13 +107,26 @@ function random(size) {
 function broadcast(message) {
   var connections = peer.connections;
 
+  // TODO: set to pending (add spinner overlay)
+  onDataHandler(message);
+
   Object.keys(connections).forEach(function(id) {
     // TODO / NOTE: you can have multiple `DataChannels` to a single peer
     var connection = connections[id][0];
     connection.send(message);
-  })
+  });
+
+  // TODO: set to not pending (remove spinner overlay)
+}
+
+function reconnect() {
+  if (peer.disconnected) {
+    peer.reconnect();
+  }
 }
 
 
-/* ------- INIT -------- */
+/* --- INIT --- */
 window.connect();
+
+var pollId = setInterval(reconnect, 5000);
