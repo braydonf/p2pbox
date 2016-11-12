@@ -30,7 +30,10 @@ window.connect = function() {
   connectPeers(function() {
     submitClickHandler = function(event) {
       console.log('broadcasting:', input.value);
-      broadcast(input.value);
+      broadcast([{
+        text: input.value,
+        type: 'text'
+      }]);
     }
   });
 
@@ -45,22 +48,30 @@ window.connect = function() {
 };
 
 function onDataHandler(data) {
-  // console.log(data);
-  var blob = new Blob([data], {type: 'application/octet-stream'});
-  var fileReader = new FileReader();
-  fileReader.onload = function() {
-    var img = document.createElement('img');
-    var anchor = document.createElement('a');
-    anchor.href = fileReader.result;
-    anchor.download = 'file.jpg';
-    anchor.appendChild(img);
-    img.src = fileReader.result;
-    // var message = document.createElement('div');
-    // message.innerText = data;
-    // messages.appendChild(message);
-    messages.appendChild(anchor);
-  };
-  fileReader.readAsDataURL(blob);
+  data.forEach(function(datum) {
+    const type = TYPES.filter(function(type) {
+      return type.mime.test(datum.type);
+    })[0];
+
+    const appendMessage = type.handler;
+
+    Object.keys(datum).forEach(function(key) {
+      switch (key) {
+        case 'file':
+          readFile(datum.file, appendMessage);
+          break;
+        case 'text':
+          appendMessage(datum.text);
+          break;
+      }
+    })
+  });
+
+  // const packet = decodeData(data);
+
+  // TYPES[data.type](packet.content, function(element) {
+  //   messages.appendChild(element);
+  // });
 }
 
 function registerDataHandler(conn) {
