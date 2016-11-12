@@ -7,11 +7,12 @@ const messages = document.querySelector('#messages');
 var peerIds;
 var peer;
 
-var hostname = (window.location.hostname);
+var hostname = window.location.hostname;
+var port = window.location.port || 80;
 
 window.connect = function() {
   // No API key required when not using cloud server
-  peer = new Peer(random(10), {host: hostname, port: 9000, path: '/peerjs'});
+  peer = new Peer(random(10), {host: hostname, port: port, path: '/peerjs'});
 
   console.log('I am ', peer.id);
   window.peer = peer;
@@ -38,6 +39,12 @@ window.connect = function() {
   });
 };
 
+function onDataHandler(data) {
+  console.log(data);
+  var message = document.createElement('div');
+  messages.
+}
+
 function registerDataHandler(conn) {
   conn.send('hi there!');
   conn.on('data', function(data) {
@@ -49,7 +56,7 @@ function connectPeers(callback) {
   var xhr = new XMLHttpRequest();
   var peerIds = [];
 
-  xhr.open('get', 'http://' + hostname + ':9000/peers');
+  xhr.open('get', 'http://' + hostname + ':' + port + '/peers');
   xhr.onload = function() {
     try {
       peerIds = JSON.parse(xhr.response);
@@ -66,9 +73,7 @@ function connectPeers(callback) {
         conn.on('close', disconnectHandler);
 
         conn.send('hi there!');
-        conn.on('data', function(data) {
-          console.log('data:', data)
-        })
+        conn.on('data', onDataHandler)
       });
     } catch (err) {
       console.error(err);
