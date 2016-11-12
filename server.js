@@ -13,6 +13,7 @@ app.get('/', function(req, res, next) {
   res.send('Hello world!');
 });
 
+console.info('Listening on port 9000...');
 var server = app.listen(9000);
 
 var options = {
@@ -29,6 +30,8 @@ app.get('/peers', function(req, res, next) {
   res.json(connectionArray);
   res.end();
 });
+
+app.use(express.static(__dirname));
 
 peerServer.on('connection', function(id) {
   console.log('connection:', id);

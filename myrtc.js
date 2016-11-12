@@ -1,14 +1,16 @@
 'use strict';
 
-// const input = document.querySelector('#input');
-// const button = document.querySelector('#button');
-// const messages = document.querySelector('#messages');
+const input = document.querySelector('#input');
+const button = document.querySelector('#button');
+const messages = document.querySelector('#messages');
 
 var peerIds;
+var peer;
 
 window.connect = function() {
   // No API key required when not using cloud server
-  var peer = new Peer(random(10), {host: 'localhost', port: 9000, path: '/peerjs'});
+  peer = new Peer(random(10), {host: '192.168.44.36', port: 9000, path: '/peerjs'});
+
   console.log('I am ', peer.id);
   window.peer = peer;
 
@@ -17,41 +19,60 @@ window.connect = function() {
     console.log('error:', err);
   });
 
-  connectPeers(peer);
+  connectPeers(function() {
+    button.onclick = function(event) {
+      console.log('broadcasting:', input.value);
+      broadcast(input.value);
+    }
+  });
 
   peer.on('open', function(id) {
-    console.log('listenint:', id);
+    console.log('listening:', id);
   });
 
   peer.on('connection', function(conn) {
     console.log('connection!');
-    conn.send('hi there!');
-    conn.on('data', function(data) {
-      console.log('data:', data)
-    })
+    registerDataHandler(conn);
   });
 };
 
-function connectPeers(me) {
+function registerDataHandler(conn) {
+  conn.send('hi there!');
+  conn.on('data', function(data) {
+    console.log('data:', data)
+  })
+}
+
+function connectPeers(callback) {
   var xhr = new XMLHttpRequest();
   var peerIds = [];
 
   xhr.open('get', 'http://localhost:9000/peers');
   xhr.onload = function() {
     try {
-      console.log('xhr response:', xhr.response);
       peerIds = JSON.parse(xhr.response);
       peerIds.forEach(function(id) {
-        console.log('id:', id);
-        console.log('me.id:', me.id);
-        if (id === me.id) return;
+        if (id === peer.id) return;
 
-        console.log('peer:', id);
-        peer.connect(id);
+        console.log('connecting to:', id);
+        var conn = peer.connect(id);
+        var disconnectHandler = function() {
+          conn.close();
+        };
+
+        conn.on('error', disconnectHandler);
+        conn.on('close', disconnectHandler);
+
+        conn.send('hi there!');
+        conn.on('data', function(data) {
+          console.log('data:', data)
+        })
       });
     } catch (err) {
-      return console.error(err);
+      console.error(err);
     }
+
+    callback();
   };
 
   xhr.send();
@@ -71,7 +92,21 @@ function random(size) {
   var buf = new Uint8Array(size);
   crypto.getRandomValues(buf);
 
-  return buf.map(function(int) {
+  return String(buf.map(function(int) {
     return int.toString(16)
-  }).join('');
-};
+  }).join(''));
+}
+
+function broadcast(message) {
+  var connections = peer.connections;
+
+  Object.keys(connections).forEach(function(id) {
+    // TODO / NOTE: you can have multiple `DataChannels` to a single peer
+    var connection = connections[id][0];
+    connection.send(message);
+  })
+}
+
+
+/* ------- INIT -------- */
+window.connect();
