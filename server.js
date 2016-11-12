@@ -7,7 +7,7 @@ var app = express();
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var cors = require('cors');
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 9000));
 
 app.use(cors());
 app.get('/', function(req, res, next) {

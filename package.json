@@ -7,7 +7,9 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "cors": "^2.8.1",
     "express": "^4.14.0",
+    "peer": "^0.2.8",
     "peerjs-server": "^0.2.9"
   },
   "engines": {
