@@ -1,7 +1,10 @@
 'use strict';
 
 // TODO: on mouse over of a message, highlight all messages from that user
-// TODO: multiple data channels for 
+// TODO: multiple data channels for audio "rooms"
+// TODO: when connecting, send pubkey and expect peers pubkeys in return
+// TODO: when sending data, encrypt data with session key and encrypt session key
+//   for all clients
 
 const input = document.querySelector('#input');
 const button = document.querySelector('#button');
@@ -14,7 +17,6 @@ var hostname = window.location.hostname;
 var port = window.location.port || 80;
 
 window.connect = function() {
-  // No API key required when not using cloud server
   peer = new Peer(random(10), {host: hostname, port: port, path: '/peerjs'});
 
   console.log('I am ', peer.id);
