@@ -7,9 +7,11 @@ const messages = document.querySelector('#messages');
 var peerIds;
 var peer;
 
+var hostname = (window.location.hostname);
+
 window.connect = function() {
   // No API key required when not using cloud server
-  peer = new Peer(random(10), {host: '192.168.44.36', port: 9000, path: '/peerjs'});
+  peer = new Peer(random(10), {host: hostname, port: 9000, path: '/peerjs'});
 
   console.log('I am ', peer.id);
   window.peer = peer;
@@ -47,7 +49,7 @@ function connectPeers(callback) {
   var xhr = new XMLHttpRequest();
   var peerIds = [];
 
-  xhr.open('get', 'http://localhost:9000/peers');
+  xhr.open('get', 'http://' + hostname + ':9000/peers');
   xhr.onload = function() {
     try {
       peerIds = JSON.parse(xhr.response);
