@@ -12,7 +12,10 @@ function random(size) {
   var buf = new Uint8Array(size);
   crypto.getRandomValues(buf);
 
-  return String(buf.map(function(int) {
-    return int.toString(16);
-  }).join(''));
+  var cat = '';
+  for (var i = 0; i < buf.length; i++) {
+    cat += buf[i].toString(16);
+  }
+
+  return cat;
 }
