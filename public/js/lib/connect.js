@@ -95,6 +95,10 @@ function onDataHandler(peerId) {
 }
 
 function registerPeerConnHandlers(conn) {
+  if (!/peers/.test(document.body.className)) {
+    document.body.className += ' peers';
+  }
+
   var disconnectHandler = function() {
     conn.close();
   };
