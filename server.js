@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
       port: req.port,
       protocol: 'https'
     });
-    res.redirect(url.replace('http', 'https'));
+    res.redirect(httpsUrl);
   } else {
     next();
   }
