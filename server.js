@@ -12,6 +12,9 @@ var cors = require('cors');
 app.set('port', (process.env.PORT || 9000));
 var port = app.get('port');
 
+// lets encrypt challenge
+app.use('/.well-known', express.static(__dirname + '/.well-known'));
+
 app.use(cors());
 
 console.info('Listening on port ' + port + '...');
@@ -63,7 +66,6 @@ app.get('/connect/:roomId/:peerId', function(req, res, next) {
   console.dir(rooms);
   return res.status(201).json(Array.from(room));
 });
-
 
 app.use(express.static(__dirname + '/public'));
 
