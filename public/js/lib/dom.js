@@ -87,13 +87,17 @@ function addMessage(options, callback) {
   const messageElement = document.createElement('div');
   const peerIdElement = document.createElement('div');
   console.log(options.peerId);
-  peerIdElement.innerText = String(options.peerId);
-  messageElement.appendChild(peerIdElement);
 
   messageElement.classList.add('message');
   if (options.peerId === peer.id) {
+    // peerIdElement.innerText = 'me:';
     messageElement.classList.add('my');
+  } else {
+    messageElement.appendChild(peerIdElement);
+    peerIdElement.innerText = String(options.peerId);
   }
+  
+  peerIdElement.classList.add('peer-id');
 
   callback(messageElement);
   messages.insertBefore(messageElement, messages.firstChild);
