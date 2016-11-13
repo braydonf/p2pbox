@@ -8,26 +8,28 @@ const apiUrlBase = 'http://' + hostname + ':' + port;
 
 var peerIds, peer, pollId;
 
-function onDataHandler(data) {
-  data.forEach(function(datum) {
-    datum.peerId = peer.id;
-    const type = TYPES.filter(function(type) {
-      return type.mime.test(datum.type);
-    })[0];
+function onDataHandler(peerId) {
+  return function(data) {
+    data.forEach(function(datum) {
+      datum.peerId = peerId;
+      const type = TYPES.filter(function(type) {
+        return type.mime.test(datum.type);
+      })[0];
 
-    const appendMessage = type.handler;
+      const appendMessage = type.handler;
 
-    Object.keys(datum).forEach(function(key) {
-      switch (key) {
-        case 'file':
-          readFile(datum, appendMessage);
-          break;
-        case 'text':
-          appendMessage(datum);
-          break;
-      }
-    })
-  });
+      Object.keys(datum).forEach(function(key) {
+        switch (key) {
+          case 'file':
+            readFile(datum, appendMessage);
+            break;
+          case 'text':
+            appendMessage(datum);
+            break;
+        }
+      })
+    });
+  }
 }
 
 function registerPeerConnHandlers(conn) {
@@ -35,7 +37,7 @@ function registerPeerConnHandlers(conn) {
     conn.close();
   };
 
-  conn.on('data', onDataHandler);
+  conn.on('data', onDataHandler(conn.peer));
   conn.on('error', disconnectHandler);
   conn.on('close', disconnectHandler);
 }

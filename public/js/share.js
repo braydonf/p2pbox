@@ -48,7 +48,7 @@ function broadcast(message) {
   var connections = peer.connections;
 
   // TODO: set to pending (add progress overlay)
-  onDataHandler(message);
+  onDataHandler(peer.id)(message);
 
   Object.keys(connections).forEach(function(id) {
     // TODO / NOTE: you can have multiple `DataChannels` to a single peer
