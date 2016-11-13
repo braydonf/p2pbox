@@ -1,10 +1,6 @@
-# Node Knockout 2016 Starter
+# P2PBox
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-Tuned to run on EngineYard Cloud.
-
-## Running Locally
+<p>Send videos, images and files instantly and directly to family and friends with a simple link. It's easy to share large files with anyone. Secure collaboration made convienient with end-to-end encryption, your files are sent directly via WebRTC from your web browser to another.</p>
 
 Make sure you have [Node.js](http://nodejs.org/) installed (uses version `4.4.5`).
 
@@ -15,20 +11,11 @@ npm install
 npm start
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+Your app should now be running on [localhost:9000](http://localhost:9000/).
 
 ## Deploying to EngineYard
 
 Log into <https://cloud.engineyard.com>. Navigate to your Team's Application, and click "Deploy".
-
-
-## Supported Node.js versions
-
-Please use one of these Node.js versions
-
-4.4.5, 4.6.0, 5.11.0, 6.4.0, 6.7.0
-
-## Documentation
 
 For more information about using Node.js on EngineYard, check out these articles
 
