@@ -31,9 +31,14 @@ const TYPES = [
 
           const anchor = document.createElement('a');
           anchor.href = serviceWorkerPath;
-          messageElement.classList.add('img');
-          anchor.download = options.file.filename;
+
           anchor.appendChild(img);
+
+          anchor.onclick = function(e) {
+            var click = new MouseEvent('click');
+            anchor.dispatchEvent(click);
+            e.preventDefault();
+          };
 
           messageElement.appendChild(anchor);
         }, 250);
