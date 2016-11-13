@@ -88,8 +88,12 @@ app.get('/', function(req, res) {
   res.end(body);
 });
 
+app.use('/share/*/*', function(req, res) {
+  res.status(404).send('Not Found');
+});
+
 app.get('/share/*', function(req, res) {
-  const body = fs.readFileSync(__dirname + '/share.html');
+  const body = fs.readFileSync(__dirname + '/index.html');
   res.writeHead(200);
   res.end(body);
 });

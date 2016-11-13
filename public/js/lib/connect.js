@@ -2,7 +2,13 @@
 
 const hostname = window.location.hostname;
 const port = window.location.port || 80;
-const roomId = window.location.pathname || random(20);
+
+var roomId = random(20);
+
+if (/^\/share\//.test(window.location.pathname)) {
+  roomId = window.location.pathname.replace('/share/', '');
+}
+console.log('In room', roomId);
 
 const apiUrlBase = 'http://' + hostname + ':' + port;
 
@@ -97,7 +103,7 @@ function registerPeerConnHandlers(conn) {
 
 function connectPeers(callback) {
   const peersPath = apiUrlBase + '/peers';
-  const connectPath = apiUrlBase + '/connect' + roomId + '/' + peer.id;
+  const connectPath = apiUrlBase + '/connect/' + roomId + '/' + peer.id;
   var peersRequest = new XMLHttpRequest();
   var connectionRequest = new XMLHttpRequest();
   var peerIds = [];
