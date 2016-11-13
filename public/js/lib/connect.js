@@ -2,7 +2,7 @@
 
 const hostname = window.location.hostname;
 const secure = /^https/.test(window.location.protocol);
-const port = window.location.port || secure ? 443 : 80;
+const port = window.location.port || (secure ? 443 : 80);
 
 
 /* --- INIT --- */
