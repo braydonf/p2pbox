@@ -26,16 +26,14 @@ this.addEventListener('fetch', function(e) {
   var path = matches[13];
   var filename = path.replace('/files/', '');
 
-  console.log('url', e.request.url);
-  console.log('filename:', filename);
-  console.log('has?', files.has(filename));
-  console.log('dhas?', files.has(decodeURIComponent(filename)));
-  if (files.has(decodeURIComponent(filename))) {
-    const file = files.get(decodeURIComponent(filename));
+  var filenameURI = decodeURIComponent(filename);
+
+  if (files.has(filenameURI)) {
+    const file = files.get(filenameURI);
     const headers = new Headers();
     console.log('content type - file type:', file.type);
     headers.append('Content-Type', file.type);
-    headers.append('Content-Disposition', 'attachment; filename=image.jpg');
+    headers.append('Content-Disposition', 'attachment; filename=' + filenameURI);
     var blob = new Blob([file.data]);
     response = new Response(blob, {
       status: 200,
