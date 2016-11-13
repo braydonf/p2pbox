@@ -11,6 +11,8 @@ var roomId = window.roomId = null;
 if (/^\/share\//.test(window.location.pathname)) {
   roomId = window.location.pathname.replace('/share/', '');
   console.log('In room', roomId);
+  var shareLinkElm = document.getElementById('sharevalue');
+  shareLinkElm.value = window.location.href;
 }
 
 const apiUrlBase = (secure ? 'https://' : 'http://') + hostname + ':' + port;
