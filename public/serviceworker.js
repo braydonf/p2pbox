@@ -1,6 +1,7 @@
 var files = new Map();
 
 this.addEventListener('message', function(event) {
+  console.log('message filename:', event.data.filename);
   files.set(event.data.filename, {
     file: event.data.file,
     type: event.data.type
@@ -25,10 +26,10 @@ this.addEventListener('fetch', function(e) {
   var path = matches[13];
   var filename = path.replace('/files/', '');
 
-  if (files.has(filename)) {
-    const file = files.get(filename);
+  if (files.has(decodeURIComponent(filename))) {
+    const file = files.get(decodeURIComponent(filename));
     const headers = new Headers();
-    headers.append('Content-Type', 'image/jpeg');
+    headers.append('Content-Type', file.mime);
     var blob = new Blob([file.file]);
     response = new Response(blob, {
       status: 200,

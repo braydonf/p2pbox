@@ -33,17 +33,20 @@ const TYPES = [
 
         // To load or download the data, create an element with a url
         // that points to "files/<filename>"
-        const img = document.createElement('img');
-        img.src = serviceWorkerPath;
+        setTimeout(function() {
+          const img = document.createElement('img');
+          img.src = serviceWorkerPath;
 
-        const anchor = document.createElement('a');
-        anchor.href = serviceWorkerPath;
+          const anchor = document.createElement('a');
+          anchor.href = serviceWorkerPath;
 
-        messageElement.classList.add('img');
+          messageElement.classList.add('img');
 
-        anchor.download = options.file.filename;
-        anchor.appendChild(img);
-        messageElement.appendChild(anchor);
+          anchor.download = options.file.filename;
+          anchor.appendChild(img);
+
+          messageElement.appendChild(anchor);
+        }, 500);
       });
     }
   },
