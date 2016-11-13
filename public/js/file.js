@@ -5,62 +5,43 @@ const TYPES = [
   {
     mime: /text\/plain/,
     handler: function(options) {
-      const message = document.createElement('div');
-      message.classList.add('message')
-      message.innerText = options.text;
-      messages.appendChild(message);
+      addMessage(function(messageElement) {
+        messageElement.classList.add('message');
+        messageElement.innerText = options.text;
+      })
     }
   },
   // image
   {
     mime: /image\//,
     handler: function(options) {
-      const img = document.createElement('img');
-      const anchor = document.createElement('a');
+      addMessage(function(messageElement) {
+        const img = document.createElement('img');
+        const anchor = document.createElement('a');
 
-      anchor.href = options.data;
-      anchor.download = options.filename;
-      anchor.appendChild(img);
-      img.src = options.data;
-      messages.appendChild(anchor);
+        anchor.href = options.data;
+        anchor.download = options.filename;
+        anchor.appendChild(img);
+        img.src = options.data;
+        messageElement.appendChild(anchor)
+      })
     }
   },
   // other
   {
     mime: /.*/,
     handler: function(options) {
-      const anchor = document.createElement('a');
+      addMessage(function(messageElement) {
+        const anchor = document.createElement('a');
 
-      anchor.href = options.data;
-      anchor.download = options.filename;
-      anchor.innerHTML = options.filename;
-      messages.appendChild(anchor);
+        anchor.href = options.data;
+        anchor.download = options.filename;
+        anchor.innerHTML = options.filename;
+        messageElement.appendChild(anchor);
+      })
     }
   }
 ];
-
-// function decodeData(data) {
-//   // var blob = new Blob([data], {type: 'application/octet-stream'});
-//   // var fileReader = new FileReader();
-//   // fileReader.onload = function() {
-//   //   const arrayBuffer = fileReader.result;
-//   //   debugger;
-//   // };
-//   // const dataURI = fileReader.readAsArrayBuffer(blob);
-//
-//   // let type;
-//   //
-//   // readAs('hex', data, function(text) {
-//   // }, 2);
-//   //
-//   // readAs(, data, function(text) {
-//   // }, 2);
-//   //
-//   // return {
-//   //   type: '',
-//   //   content: dataURI
-//   // }
-// }
 
 function readFile(fileContainer, callback) {
   const fileReader = new FileReader();
@@ -91,4 +72,10 @@ function onFileChangeHandler(event) {
     },
     type: file.type
   }])
+}
+
+function addMessage(callback) {
+  const messageElement = document.createElement('div');
+  callback(messageElement);
+  messages.appendChild(messageElement);
 }
