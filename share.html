@@ -27,19 +27,20 @@
     </header>
 
 
-
-    <div class="column-group all-100 vertical-padding">
-        <div id="messages" class="all-100 push-center">
-
-        </div>
-    </div>
-    <div id="control-panel">
+    <div >
         <form class="ink-form" onsubmit="formSubmitHandler(event)" autocomplete="off">
             <input type="text" id="input" placeholder="type some shit..."/>
             <input type="submit" id="button" value="Send" onclick="submitClickHandler(event)"/>
             <input type="file" id="file" onchange="onFileChangeHandler(event)" />
         </form>
     </div>
+    
+    <div class="column-group all-100 vertical-padding">
+        <div id="messages" class="all-100 push-center">
+
+        </div>
+    </div>
+
 </div>
 
 
