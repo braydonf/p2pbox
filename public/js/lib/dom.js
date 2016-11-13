@@ -59,11 +59,11 @@ const TYPES = [
           console.log(anchor);
 
           anchor.href = serviceWorkerPath;
-          anchor.download = options.filename;
+          anchor.download = options.file.filename;
 
-          const inText = document.createElement('span');
-          inText.innerText = ' ' + options.filename;
-          anchor.appendChild(inText);
+          const textElement = document.createElement('span');
+          textElement.innerText = ' ' + options.file.filename;
+          anchor.appendChild(textElement);
           messageElement.appendChild(anchor);
         }, 250);
       });
