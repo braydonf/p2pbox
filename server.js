@@ -101,7 +101,7 @@ peerServer.on('connection', function(id) {
 
 peerServer.on('disconnect', function(id) {
   connections.delete(id);
-  removePeer(id)
+  removePeer(id);
 });
 
 function removePeer(id, roomId) {
@@ -113,5 +113,5 @@ function removePeer(id, roomId) {
     if (room.has(id)) {
       room.delete(id);
     }
-  })
+  });
 }
