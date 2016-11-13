@@ -30,7 +30,6 @@ window.connect = function() {
 
   peer.on('disconnect', reconnect);
 
-
   peer.on('open', function(id) {
     console.log('listening:', id);
     

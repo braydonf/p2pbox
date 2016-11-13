@@ -67,7 +67,7 @@ function readFile(fileContainer, callback) {
   var data = fileContainer.data;
 
   if (data instanceof ArrayBuffer) {
-    data = new Blob([data], {type: 'application/octet-stream'});
+    data = new Blob([data], {type: fileContainer.type || 'application/octet-stream'});
   }
 
   // if (data instanceof Blob) {
