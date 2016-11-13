@@ -1,8 +1,5 @@
 'use strict';
 
-const input = document.querySelector('#input');
-const messages = document.querySelector('#messages');
-
 var submitClickHandler;
 
 const TYPES = [
@@ -61,7 +58,12 @@ function addMessage(options, callback) {
   console.log(options.peerId);
   peerIdElement.innerText = String(options.peerId);
   messageElement.appendChild(peerIdElement);
+  
   messageElement.classList.add('message');
+  if (options.peerId === peer.id) {
+    messageElement.classList.add('my')
+  }
+  
   callback(messageElement);
-  messages.appendChild(messageElement);
+  messages.insertBefore(messageElement, messages.firstChild);
 }
