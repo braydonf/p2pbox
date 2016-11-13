@@ -112,6 +112,10 @@ body.room #waiting {
     display: block;
 }
 
+body.peers.room #waiting {
+    display:none;
+}
+
 #shareurl {
     color: #fff;
     width: 100%;
