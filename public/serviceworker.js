@@ -35,6 +35,7 @@ this.addEventListener('fetch', function(e) {
     const headers = new Headers();
     console.log('content type - file type:', file.type);
     headers.append('Content-Type', file.type);
+    headers.append('Content-Disposition', 'attachment; filename=image.jpg');
     var blob = new Blob([file.data]);
     response = new Response(blob, {
       status: 200,
