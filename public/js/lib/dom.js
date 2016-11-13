@@ -56,9 +56,19 @@ const TYPES = [
         setTimeout(function() {
           const anchor = document.createElement('a');
 
+          var icon = document.createElement('i');
+          icon.classList.add('fa');
+          icon.classList.add('fa-file');
+          console.log(icon);
+          anchor.appendChild(icon);
+          console.log(anchor);
+
           anchor.href = serviceWorkerPath;
-          anchor.download = options.filename;
-          anchor.innerHTML = options.filename;
+          anchor.download = options.file.filename;
+
+          const textElement = document.createElement('span');
+          textElement.innerText = ' ' + options.file.filename;
+          anchor.appendChild(textElement);
           messageElement.appendChild(anchor);
         }, 250);
       });
