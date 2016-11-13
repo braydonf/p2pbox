@@ -37,7 +37,7 @@ const TYPES = [
         img.src = serviceWorkerPath;
 
         const anchor = document.createElement('a');
-        anchor.src = serviceWorkerPath;
+        anchor.href = serviceWorkerPath;
 
         messageElement.classList.add('img');
 

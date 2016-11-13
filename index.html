@@ -50,44 +50,66 @@
             <header class="clearfix vertical-padding">
                 <div class="column-group">
                   <div class="logo xlarge-push-middle push-center">
-                      <a href="#">
+                      <a href="/">
                           <img src="/logo.svg" alt="">
                       </a>
                   </div>
-              </div>
+                </div>
+
+                <form id="roomshareform" class="ink-form" onsubmit="formSubmitHandler(event)" autocomplete="off">
+                  <input type="text" id="input" placeholder="type some shit..."/>
+                  <input type="submit" id="button" value="Send" onclick="submitClickHandler(event)"/>
+                  <input type="file" id="file" onchange="onFileChangeHandler(event)" />
+                </form>
+
             </header>
 
-            <div class="column-group vertical-space">
+            <section id="landing">
+              <div class="column-group vertical-space">
                 <div class="all-100">
-                    <h1>Send files quickly!</h1>
-                    <p>
-                      Send videos, images and files instantly and directly to family and friends with a simple link. It's easy to share large files with anyone. Secure collaboration made convienient with end-to-end encryption, your files are sent directly via WebRTC from your web browser to another.
-                    </p>
+                  <h1>Send files quickly!</h1>
+                  <p>
+                    Send videos, images and files instantly and directly to family and friends with a simple link. It's easy to share large files with anyone. Secure collaboration made convienient with end-to-end encryption, your files are sent directly via WebRTC from your web browser to another.
+                  </p>
                 </div>
-            </div>
+              </div>
 
-            <div class="column-group vertical-space">
-              <div class="all-50 push-center push-middle">
+              <div class="column-group vertical-space">
+                <div class="all-50 push-center push-middle">
                   <div class="align-center">
-                    <button class="ink-button blue big-button">Share File with P2PBox</button>
+                    <button id="landingsharebutton" class="ink-button blue big-button" onclick="gotoNewRoom()">
+                      <!-- TODO: select file, and go to new room -->
+                      Share File with P2PBox
+                    </button>
                   </div>
+                </div>
               </div>
-            </div>
+            </section>
 
+            <section id="waiting">
+              <div class="column-group vertical-space">
+                <div class="all-75 push-center push-middle">
+                  <div class="align-center">
+                    <h1>Waiting for peers to join...</h1>
 
-            <div >
-              <form class="ink-form" onsubmit="formSubmitHandler(event)" autocomplete="off">
-                <input type="text" id="input" placeholder="type some shit..."/>
-                <input type="submit" id="button" value="Send" onclick="submitClickHandler(event)"/>
-                <input type="file" id="file" onchange="onFileChangeHandler(event)" />
-              </form>
-            </div>
+                    <div id="shareurl" class="align-center">
+                      <p>Share this url:</p>
+                      <input class="align-center" value="http://localhost:9000/share/1254c572bd0d0d6"></input>
+                    </div>
 
-            <div class="column-group all-100 vertical-padding">
-              <div id="messages" class="all-100 push-center">
-
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
+
+
+            <section id="messagesarea">
+              <div class="column-group all-100 vertical-padding">
+                <div id="messages" class="all-100 push-center">
+
+                </div>
+              </div>
+            </section>
 
         </div>
         <footer class="clearfix">
@@ -99,13 +121,11 @@
             </div>
         </footer>
         <script src="/js/vendor/peer.js"></script>
+        <script src="/js/lib/init.js"></script>
         <script src="/js/lib/misc.js"></script>
         <script src="/js/lib/connect.js"></script>
         <script src="/js/lib/dom.js"></script>
         <script src="/js/lib/file.js"></script>
-
-        <script src="/js/index.js"></script>
-        <script src="/js/share.js"></script>
     </body>
 
 </html>

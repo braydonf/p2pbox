@@ -3,19 +3,20 @@
 const hostname = window.location.hostname;
 const port = window.location.port || 80;
 
-var roomId = random(20);
+/* --- INIT --- */
+var roomId = window.roomId = null;
 
 if (/^\/share\//.test(window.location.pathname)) {
   roomId = window.location.pathname.replace('/share/', '');
+  console.log('In room', roomId);
 }
-console.log('In room', roomId);
 
 const apiUrlBase = 'http://' + hostname + ':' + port;
 
 var peerIds, peer, pollId;
 
 window.connect = function() {
-  peer = new Peer(random(10), {host: hostname, port: port, path: '/peerjs'});
+  peer = new Peer(random(32), {host: hostname, port: port, path: '/peerjs'});
 
   console.log('I am ', peer.id);
   window.peer = peer;
@@ -139,9 +140,14 @@ function connectPeers(callback) {
 }
 
 function reconnect() {
-  if (peer.disconnected) {
+  if (peer && peer.disconnected) {
     peer.reconnect();
   }
 }
 
 pollId = setInterval(reconnect, 5000);
+
+if (roomId) {
+  window.connect();
+  document.body.className += 'room';
+}

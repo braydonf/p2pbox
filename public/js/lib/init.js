@@ -9,24 +9,13 @@
 const input = document.querySelector('#input');
 const messages = document.querySelector('#messages');
 
-/* --- INIT --- */
-window.connect();
-
-
-/* --- LOAD SERVICE WORKER ---- */
 navigator.serviceWorker.register('/serviceworker.js', { scope: "/" }).then(function(registration) {
   console.log('Service Worker registration successful with scope:', registration.scope);
 }).catch(function(err) {
   console.error('ServiceWorker registration failed::', err);
 });
 
+function gotoNewRoom() {
+  window.location.pathname = '/share/' + random(8);
+}
 
-/* --- TESTING ---- */
-// setInterval(function() {
-//   var message = {
-//     filename: 'cat.jpg',
-//     file: new ArrayBuffer(8)
-//   };
-//   navigator.serviceWorker.controller.postMessage(message);
-
-// }, 3000);

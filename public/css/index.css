@@ -1,11 +1,15 @@
 body {
     margin: 0;
     padding: 0;
-    background: #ededed;
-    font-family:  "Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
+    background: #fbfbfb;
+    font-family: "Open Sans","lucida grande",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
 }
 
 header {
+    border-bottom: 1px solid #cecece;
+    background-color:#fff;
+    padding: 7px;
+    box-shadow: 0px 2px 2px #d0d4d9;
     border-bottom: 1px solid #cecece;
 }
 
@@ -20,10 +24,7 @@ h2 {
 }
 
 #header {
-    background-color:#fff;
-    padding: 7px;
-    box-shadow: 0px 2px 2px #d0d4d9;
-    border-bottom: 1px solid #cecece;
+
 }
 
 #control-panel {
@@ -81,11 +82,50 @@ h2 {
 }
 
 footer {
-    background: #ccc;
+    margin-top: 200px;
+    height: 100px;
 }
 
 .big-button {
     width: 500px;
     height: 200px;
     font-size: 38px;
+}
+
+#roomshareform {
+    display: none;
+}
+
+body.room #roomshareform {
+    display: block;
+}
+
+body.room #landing {
+    display: none;
+}
+
+#waiting {
+    display: none;
+}
+
+body.room #waiting {
+    display: block;
+}
+
+#shareurl {
+    color: #fff;
+    width: 100%;
+    padding:25px;
+}
+
+#shareurl, #shareurl input {
+    background-color: #ffa749;
+}
+
+#shareurl input {
+    color: #fff;
+    border:0;
+    padding:20px;
+    width: 100%;
+    font-size:32px;
 }
