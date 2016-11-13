@@ -6,7 +6,7 @@ const TYPES = [
     mime: /text\/plain/,
     handler: function(options) {
       const message = document.createElement('div');
-
+      message.classList.add('message')
       message.innerText = options.text;
       messages.appendChild(message);
     }

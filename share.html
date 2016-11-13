@@ -5,11 +5,31 @@
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 
     <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script>
+      <link rel="stylesheet" type="text/css" href="/css/index.css" />
+
+      <!-- load Ink's css from the cdn -->
+      <link rel="stylesheet" type="text/css" href="http://cdn.ink.sapo.pt/3.1.10/css/ink-flex.min.css">
+      <link rel="stylesheet" type="text/css" href="http://cdn.ink.sapo.pt/3.1.10/css/font-awesome.min.css">
+
 </head>
 <body>
 <div class="ink-grid">
-    <div class="column-group all-80">
-        <div id="messages" class="all-100">
+
+
+    <header class="clearfix vertical-padding">
+        <div class="column-group">
+          <div class="logo xlarge-push-middle push-center">
+              <a href="#">
+                  <img src="logo.svg" alt="">
+              </a>
+          </div>
+      </div>
+    </header>
+
+
+
+    <div class="column-group all-100 vertical-padding">
+        <div id="messages" class="all-100 push-center">
 
         </div>
     </div>
@@ -21,8 +41,19 @@
         </form>
     </div>
 </div>
+
+
+<footer class="clearfix">
+    <div class="ink-grid">
+        <br/>
+        <p class="note">
+          <a href="https://www.nodeknockout.com/">Node Knockout 2016</a> - Team Broken Promises</p>
+    </div>
+</footer>
+
 <script src="./js/peer.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/file.js"></script>
+
 </body>
 </html>
