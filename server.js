@@ -3,21 +3,27 @@
 var rooms = new Map();
 var connections = new Set();
 
-var fs = require('fs');
-var express = require('express');
-var app = express();
-var ExpressPeerServer = require('peer').ExpressPeerServer;
-var cors = require('cors');
+const url = require('url');
+const fs = require('fs');
+const express = require('express');
+const app = express();
+const ExpressPeerServer = require('peer').ExpressPeerServer;
+const cors = require('cors');
 
 app.set('port', (process.env.PORT || 9000));
-var port = app.get('port');
+const port = app.get('port');
 
 // lets encrypt challenge
 app.use('/.well-known', express.static(__dirname + '/.well-known'));
 
 app.use(function(req, res, next) {
   if (req.headers['x-forwarded-proto'] === 'http') {
-    var url = req.originalUrl;
+    var httpsUrl = url.format({
+      pathname: req.path,
+      hostname: req.hostname,
+      port: req.port,
+      protocol: 'https'
+    });
     res.redirect(url.replace('http', 'https'));
   } else {
     next();
