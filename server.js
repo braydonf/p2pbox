@@ -33,9 +33,18 @@ app.get('/connect/:roomId/:peerId', function(req, res, next) {
 
   const roomId = req.params.roomId;
   const peerId = req.params.peerId;
+  console.log('roomId: ', roomId);
+  console.log('peerId: ', peerId);
+  console.dir(rooms);
 
   // ensure peer is in connection pool
-  if (!connections.has(peerId)) return res.sendStatus(418);
+  // if (!connections.has(peerId)) return res.sendStatus(418);
+  setTimeout(function() {
+    if (!connections.has(peerId)) {
+      console.log('removing peer: ', peerId);
+      removePeer(peerId, roomId);
+    }
+  }, 5000);
 
   var room;
 
@@ -77,9 +86,17 @@ peerServer.on('connection', function(id) {
 
 peerServer.on('disconnect', function(id) {
   connections.delete(id);
+  removePeer(id)
+});
+
+function removePeer(id, roomId) {
+  if (roomId) {
+    return rooms.get(roomId).delete(id);
+  }
+
   rooms.forEach(function(room) {
     if (room.has(id)) {
       room.delete(id);
     }
   })
-});
+}

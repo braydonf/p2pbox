@@ -30,18 +30,20 @@ window.connect = function() {
 
   peer.on('disconnect', reconnect);
 
-  connectPeers(function() {
-    submitClickHandler = function(event) {
-      console.log('broadcasting:', input.value);
-      broadcast([{
-        text: input.value,
-        type: 'text/plain'
-      }]);
-    }
-  });
 
   peer.on('open', function(id) {
     console.log('listening:', id);
+    
+    // bug or something in firefox - this happens too soon
+    connectPeers(function() {
+      submitClickHandler = function(event) {
+        console.log('broadcasting:', input.value);
+        broadcast([{
+          text: input.value,
+          type: 'text/plain'
+        }]);
+      }
+    });
   });
 
   peer.on('connection', function(conn) {
