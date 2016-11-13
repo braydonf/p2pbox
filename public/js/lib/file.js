@@ -50,14 +50,14 @@ function fileFromServiceWorker(file) {
   // navigator.serviceWorker.controller.postMessage(file);
 
   // OPTION 2
-  // navigator.serviceWorker.getRegistration()
-  //     .then(function(registration) {
-  //       if (!registration.active) {
-  //         throw new Error('shit\'s broke son');
-  //       }
-  //
-  //       registration.active.postMessage(file);
-  //     })
+  navigator.serviceWorker.getRegistration()
+      .then(function(registration) {
+        if (!registration.active) {
+          throw new Error('shit\'s broke son');
+        }
+
+        registration.active.postMessage(file);
+      });
   // .catch(function() {
   //
   // })

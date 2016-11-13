@@ -22,9 +22,14 @@ this.addEventListener('fetch', function(e) {
   var urlParser = /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
 
   var matches = urlParser.exec(e.request.url);
+  // match[13] is path
   var path = matches[13];
   var filename = path.replace('/files/', '');
 
+  console.log('url', e.request.url);
+  console.log('filename:', filename);
+  console.log('has?', files.has(filename));
+  console.log('dhas?', files.has(decodeURIComponent(filename)));
   if (files.has(decodeURIComponent(filename))) {
     const file = files.get(decodeURIComponent(filename));
     const headers = new Headers();
