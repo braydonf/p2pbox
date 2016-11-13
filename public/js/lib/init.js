@@ -10,7 +10,7 @@ const navigator = window.navigator;
 const input = document.querySelector('#input');
 const messages = document.querySelector('#messages');
 
-navigator.serviceWorker.register('/serviceworker.js', {scope: "/share"}).then(function(registration) {
+navigator.serviceWorker.register('/serviceworker.js', {scope: "/"}).then(function(registration) {
   console.log('Service Worker registration successful with scope:', registration.scope);
   if (!navigator.serviceWorker.controller || !registration.active) {
     console.log('reloading...');
