@@ -83,13 +83,13 @@ app.get('/connect/:roomId/:peerId', function(req, res, next) {
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-  var body = fs.readFileSync(__dirname + '/index.html');
+  const body = fs.readFileSync(__dirname + '/index.html');
   res.writeHead(200);
   res.end(body);
 });
 
 app.use(function(req, res) {
-  var body = fs.readFileSync(__dirname + '/share.html');
+  const body = fs.readFileSync(__dirname + '/share.html');
   res.writeHead(200);
   res.end(body);
 });

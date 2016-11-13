@@ -12,3 +12,14 @@ const messages = document.querySelector('#messages');
 /* --- INIT --- */
 window.connect();
 
+// Register the service worker
+navigator.serviceWorker.register('/serviceworker.js', { scope: "/" }).then(
+    function(registration) {
+      if (registration.installing) {
+        registration.installing.postMessage('Howdy from your installing page.');
+      }
+    },
+    function(why) {
+      console.error('Installing the worker failed!:', why);
+    }
+);

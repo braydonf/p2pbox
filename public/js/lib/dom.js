@@ -19,14 +19,31 @@ const TYPES = [
     mime: /image\//,
     handler: function(options) {
       addMessage(options, function(messageElement) {
+        const serviceWorkerPath = '/files/' + options.file.filename;
+
+        // Send the image data to the service worker with
+        // the filename of and the file data
+        const message = {
+          filename: options.file.filename,
+          file: options.file.data,
+          type: options.type
+        };
+        console.log('about to post message');
+        debugger;
+        navigator.serviceWorker.controller.postMessage(message);
+
+        // To load or download the data, create an element with a url
+        // that points to "files/<filename>"
         const img = document.createElement('img');
+        img.src = serviceWorkerPath;
+
         const anchor = document.createElement('a');
+        anchor.src = serviceWorkerPath;
+
         messageElement.classList.add('img');
 
-        anchor.href = options.file.data;
         anchor.download = options.file.filename;
         anchor.appendChild(img);
-        img.src = options.file.data;
         messageElement.appendChild(anchor)
       })
     }
@@ -58,12 +75,12 @@ function addMessage(options, callback) {
   console.log(options.peerId);
   peerIdElement.innerText = String(options.peerId);
   messageElement.appendChild(peerIdElement);
-  
+
   messageElement.classList.add('message');
   if (options.peerId === peer.id) {
     messageElement.classList.add('my')
   }
-  
+
   callback(messageElement);
   messages.insertBefore(messageElement, messages.firstChild);
 }
