@@ -1,7 +1,7 @@
 {
-  "name": "twobrothers",
+  "name": "p2pbox",
   "version": "1.0.0",
-  "description": "Peer to peer sync and share files",
+  "description": "Peer-to-peer web browser file sharing",
   "main": "index.js",
   "scripts": {
     "start": "node server.js"

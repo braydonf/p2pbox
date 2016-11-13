@@ -1,4 +1,4 @@
-# P2PBox
+ # P2PBox
 
 <p>Send videos, images and files instantly and directly to family and friends with a simple link. It's easy to share large files with anyone. Secure collaboration made convienient with end-to-end encryption, your files are sent directly via WebRTC from your web browser to another.</p>
 
@@ -12,6 +12,12 @@ npm start
 ```
 
 Your app should now be running on [localhost:9000](http://localhost:9000/).
+
+
+## Dependencies
+
+- [WebRTC](https://webrtc.org/) with [peerjs](http://peerjs.com/)
+- [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 
 ## Deploying to EngineYard
 
