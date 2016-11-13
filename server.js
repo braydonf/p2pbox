@@ -15,6 +15,15 @@ var port = app.get('port');
 // lets encrypt challenge
 app.use('/.well-known', express.static(__dirname + '/.well-known'));
 
+app.use(function(req, res, next) {
+  if (req.headers['x-forwarded-proto'] === 'http') {
+    var url = req.originalUrl;
+    res.redirect(url.replace('http', 'https'));
+  } else {
+    next();
+  }
+});
+
 app.use(cors());
 
 console.info('Listening on port ' + port + '...');
