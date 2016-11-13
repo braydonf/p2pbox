@@ -63,7 +63,7 @@ app.get('/peers', function(req, res, next) {
   res.end();
 });
 
-app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
   var body = fs.readFileSync(__dirname + '/index.html');
