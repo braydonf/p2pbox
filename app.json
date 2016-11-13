@@ -1,7 +1,7 @@
 {
-  "name": "NodeKnockout 2016 Starter App",
-  "description": "A barebones Node.js app using Express 4",
+  "name": "P2PBox",
+  "description": "Peer-to-peer web browser file sharing",
   "repository": "https://github.com/rumblex-community/nodeknockout-2016-starter",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
-  "keywords": ["node", "express", "static"]
+  "logo": "https://promises.2016.nodeknockout.com/logo.svg",
+  "keywords": ["node", "express", "p2p"]
 }
