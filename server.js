@@ -88,10 +88,14 @@ app.get('/', function(req, res) {
   res.end(body);
 });
 
-app.use(function(req, res) {
+app.get('/share/*', function(req, res) {
   const body = fs.readFileSync(__dirname + '/share.html');
   res.writeHead(200);
   res.end(body);
+});
+
+app.use(function(req, res) {
+  res.status(404).send('Not Found');
 });
 
 peerServer.on('connection', function(id) {
