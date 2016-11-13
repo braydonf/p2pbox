@@ -11,7 +11,7 @@ const TYPES = [
         const textElement = document.createElement('span');
         textElement.innerText = options.text;
         messageElement.appendChild(textElement);
-      })
+      });
     }
   },
   // image
@@ -43,8 +43,8 @@ const TYPES = [
 
         anchor.download = options.file.filename;
         anchor.appendChild(img);
-        messageElement.appendChild(anchor)
-      })
+        messageElement.appendChild(anchor);
+      });
     }
   },
   // other
@@ -58,7 +58,7 @@ const TYPES = [
         anchor.download = options.filename;
         anchor.innerHTML = options.filename;
         messageElement.appendChild(anchor);
-      })
+      });
     }
   }
 ];
@@ -77,7 +77,7 @@ function addMessage(options, callback) {
 
   messageElement.classList.add('message');
   if (options.peerId === peer.id) {
-    messageElement.classList.add('my')
+    messageElement.classList.add('my');
   }
 
   callback(messageElement);

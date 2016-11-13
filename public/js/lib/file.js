@@ -28,5 +28,5 @@ function onFileChangeHandler(event) {
       data: file
     },
     type: file.type
-  }])
+  }]);
 }

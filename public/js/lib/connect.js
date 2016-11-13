@@ -36,7 +36,7 @@ window.connect = function() {
           text: input.value,
           type: 'text/plain'
         }]);
-      }
+      };
     });
   });
 
@@ -80,9 +80,9 @@ function onDataHandler(peerId) {
             appendMessage(datum);
             break;
         }
-      })
+      });
     });
-  }
+  };
 }
 
 function registerPeerConnHandlers(conn) {

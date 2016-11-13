@@ -1,35 +1,3 @@
-/*
- Usage:
-
- // Register the service worker
- navigator.serviceWorker.register('serviceworker.js', { scope: "/" }).then(
- function(registration) {
- if (registration.installing) {
- registration.installing.postMessage('Howdy from your installing page.');
- }
- },
- function(why) {
- console.error('Installing the worker failed!:', why);
- }
- );
-
- // Send the image data to the service worker with
- // the filename of and the file data
- var message = {
- filename: 'cat.jpg',
- file: new ArrayBuffer(8)
- };
- navigator.serviceWorker.controller.postMessage(message);
-
- // To load or download the data, create an element with a url
- // that points to "files/<filename>"
- var img = document.createElement('img');
- img.src = 'files/cat.jpg';
- document.body.appendChild(img);
-
- */
-
-
 var files = new Map();
 
 this.addEventListener('message', function(event) {

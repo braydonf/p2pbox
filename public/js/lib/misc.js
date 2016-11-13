@@ -13,6 +13,6 @@ function random(size) {
   crypto.getRandomValues(buf);
 
   return String(buf.map(function(int) {
-    return int.toString(16)
+    return int.toString(16);
   }).join(''));
 }
