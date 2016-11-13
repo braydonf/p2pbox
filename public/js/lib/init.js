@@ -9,6 +9,7 @@
 const navigator = window.navigator;
 const input = document.querySelector('#input');
 const messages = document.querySelector('#messages');
+const shareUrlInput = document.querySelector('#shareurl > input');
 
 navigator.serviceWorker.register('/serviceworker.js', {scope: "/"}).then(function(registration) {
   console.log('Service Worker registration successful with scope:', registration.scope);

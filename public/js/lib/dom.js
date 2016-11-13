@@ -100,3 +100,7 @@ function addMessage(options, callback) {
   callback(messageElement);
   messages.insertBefore(messageElement, messages.firstChild);
 }
+
+function highlightUrl(event) {
+  shareUrlInput.select();
+}

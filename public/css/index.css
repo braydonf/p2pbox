@@ -138,3 +138,18 @@ body.peers.room #waiting {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.message img {
+    border-radius: 15px;
+    padding: 10px;
+}
+
+#landingsharebutton,
+#shareurl {
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+#shareurl > input {
+    pointer-events: none;
+}
