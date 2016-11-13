@@ -19,34 +19,24 @@ const TYPES = [
     mime: /image\//,
     handler: function(options) {
       addMessage(options, function(messageElement) {
-        const serviceWorkerPath = '/files/' + options.file.filename;
-
-        // Send the image data to the service worker with
-        // the filename of and the file data
-        const message = {
-          filename: options.file.filename,
-          file: options.file.data,
-          type: options.type
-        };
-        console.log('about to post message');
-        navigator.serviceWorker.controller.postMessage(message);
+        const serviceWorkerPath = fileFromServiceWorker(options.file);
 
         // To load or download the data, create an element with a url
         // that points to "files/<filename>"
+
+        // TODO: fix race condition
         setTimeout(function() {
           const img = document.createElement('img');
           img.src = serviceWorkerPath;
 
           const anchor = document.createElement('a');
           anchor.href = serviceWorkerPath;
-
           messageElement.classList.add('img');
-
           anchor.download = options.file.filename;
           anchor.appendChild(img);
 
           messageElement.appendChild(anchor);
-        }, 500);
+        }, 250);
       });
     }
   },
@@ -55,12 +45,17 @@ const TYPES = [
     mime: /.*/,
     handler: function(options) {
       addMessage(options, function(messageElement) {
-        const anchor = document.createElement('a');
+        const serviceWorkerPath = fileFromServiceWorker(options.file);
 
-        anchor.href = options.data;
-        anchor.download = options.filename;
-        anchor.innerHTML = options.filename;
-        messageElement.appendChild(anchor);
+        // TODO: fix race condition
+        setTimeout(function() {
+          const anchor = document.createElement('a');
+
+          anchor.href = serviceWorkerPath;
+          anchor.download = options.filename;
+          anchor.innerHTML = options.filename;
+          messageElement.appendChild(anchor);
+        }, 250);
       });
     }
   }

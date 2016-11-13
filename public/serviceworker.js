@@ -2,10 +2,9 @@ var files = new Map();
 
 this.addEventListener('message', function(event) {
   console.log('message filename:', event.data.filename);
-  files.set(event.data.filename, {
-    file: event.data.file,
-    type: event.data.type
-  });
+  const filename = event.data.filename;
+  delete event.data.filename;
+  files.set(filename, event.data);
 });
 
 
@@ -29,8 +28,9 @@ this.addEventListener('fetch', function(e) {
   if (files.has(decodeURIComponent(filename))) {
     const file = files.get(decodeURIComponent(filename));
     const headers = new Headers();
-    headers.append('Content-Type', file.mime);
-    var blob = new Blob([file.file]);
+    console.log('content type - file type:', file.type);
+    headers.append('Content-Type', file.type);
+    var blob = new Blob([file.data]);
     response = new Response(blob, {
       status: 200,
       statusText: 'OK',
