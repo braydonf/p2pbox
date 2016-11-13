@@ -18,12 +18,7 @@ app.use('/.well-known', express.static(__dirname + '/.well-known'));
 
 app.use(function(req, res, next) {
   if (req.headers['x-forwarded-proto'] === 'http') {
-    var httpsUrl = url.format({
-      pathname: req.path,
-      hostname: req.hostname,
-      port: req.port,
-      protocol: 'https'
-    });
+    var httpsUrl = url.format({ pathname: req.path, hostname: req.hostname, protocol: 'https' });
     res.redirect(httpsUrl);
   } else {
     next();
