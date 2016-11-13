@@ -26,6 +26,34 @@ h2 {
     border-bottom: 1px solid #cecece;
 }
 
+#control-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+.message {
+    background: rgb(212, 234, 247);
+    padding: 10px;
+    border-radius: 15px;
+    margin: 10px 0;
+
+    margin-right: 50px;
+}
+
+.my.message {
+    margin-right: 0;
+    margin-left: 50px;
+    background: rgb(209, 210, 208);
+}
+
+.message.img img {
+    padding: 10px;
+    border-radius: 15px;
+}
+
 #logo {
     margin: auto;
     width: 198px;
@@ -57,7 +85,7 @@ footer {
 }
 
 .big-button {
-  width: 500px;
-  height: 200px;
-  font-size: 38px;
+    width: 500px;
+    height: 200px;
+    font-size: 38px;
 }
