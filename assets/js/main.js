@@ -11,7 +11,9 @@ const messages = document.querySelector('#messages');
 
 const hostname = window.location.hostname;
 const port = window.location.port || 80;
-const path = window.location.path || random(20);
+const roomId = window.location.pathname || random(20);
+
+const apiUrlBase = 'http://' + hostname + ':' + port;
 
 var peerIds, peer, submitClickHandler, pollId;
 
@@ -80,20 +82,32 @@ function registerPeerConnHandlers(conn) {
 }
 
 function connectPeers(callback) {
-  var xhr = new XMLHttpRequest();
+  const peersPath = apiUrlBase + '/peers';
+  const connectPath = apiUrlBase + '/connect' + roomId + '/' + peer.id;
+  var peersRequest = new XMLHttpRequest();
+  var connectionRequest = new XMLHttpRequest();
   var peerIds = [];
 
-  xhr.open('get', 'http://' + hostname + ':' + port + '/peers');
-  xhr.onload = function() {
+  connectionRequest.open('get', connectPath);
+  connectionRequest.onload = function() {
     try {
-      peerIds = JSON.parse(xhr.response);
-      peerIds.forEach(function(id) {
-        if (id === peer.id) return;
+      switch (connectionRequest.status) {
+        case 201:
+          peerIds = JSON.parse(connectionRequest.response);
+          peerIds.forEach(function(id) {
+            if (id === peer.id) return;
 
-        console.log('connecting to:', id);
-        var conn = peer.connect(id);
-        registerPeerConnHandlers(conn);
-      });
+            console.log('connecting to:', id);
+            var conn = peer.connect(id);
+            registerPeerConnHandlers(conn);
+          });
+          break;
+        case 204:
+          break;
+        default:
+          console.error('Unexpected status code from `/connect...`: ' + connectionRequest.status);
+      }
+
     } catch (err) {
       console.error(err);
     }
@@ -101,7 +115,27 @@ function connectPeers(callback) {
     callback();
   };
 
-  xhr.send();
+  connectionRequest.send();
+
+//   peersRequest.open('get', peersPath);
+//   peersRequest.onload = function() {
+//     try {
+//       peerIds = JSON.parse(peersRequest.response);
+//       peerIds.forEach(function(id) {
+//         if (id === peer.id) return;
+//
+//         console.log('connecting to:', id);
+//         var conn = peer.connect(id);
+//         registerPeerConnHandlers(conn);
+//       });
+//     } catch (err) {
+//       console.error(err);
+//     }
+//
+//     callback();
+//   };
+//
+//   peersRequest.send();
 }
 
 function random(size) {

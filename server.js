@@ -35,33 +35,26 @@ app.get('/connect/:roomId/:peerId', function(req, res, next) {
   const peerId = req.params.peerId;
 
   // ensure peer is in connection pool
-  if (!connections.has(peerId)) {
-    return res.sendStatus(418);
-  }
+  if (!connections.has(peerId)) return res.sendStatus(418);
+
+  var room;
 
   // check if room exists
-  if (rooms.has(roomId)) {
-    // check if peer is registered to toom
-    const room = rooms.get(roomId);
+  if (!rooms.has(roomId)) rooms.set(roomId, new Set());
 
-    if (room.has(peerId)) {
-      return res.sendStatus(204);
-    }
+  room = rooms.get(roomId);
 
-    room.set(peerId);
-    return res.sendStatus(201);
-  }
+  // check if peer is registered to room
+  if (room.has(peerId)) return res.sendStatus(204);
 
-  rooms.set(roomId, new Set([peerId]));
-  return res.sendStatus(201);
+  // assign peer to room
+  room.add(peerId);
+
+  // return room as array
+  console.dir(rooms);
+  return res.status(201).json(Array.from(room));
 });
 
-app.get('/peers', function(req, res, next) {
-  var connectionArray = Object.keys(connections);
-  console.log(connectionArray);
-  res.json(connectionArray);
-  res.end();
-});
 
 app.use(express.static(__dirname + '/assets'));
 
@@ -72,7 +65,7 @@ app.get('/', function(req, res) {
 });
 
 app.use(function(req, res) {
-  var body = fs.readFileSync(__dirname + '/share.html');
+  var body = fs.readFileSync(__dirname + '/public/share.html');
   res.writeHead(200);
   res.end(body);
 });
@@ -84,7 +77,7 @@ peerServer.on('connection', function(id) {
 
 peerServer.on('disconnect', function(id) {
   connections.delete(id);
-  rooms.forEach(function(name, room){
+  rooms.forEach(function(room) {
     if (room.has(id)) {
       room.delete(id);
     }
