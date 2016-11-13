@@ -33,8 +33,6 @@
 var files = new Map();
 
 this.addEventListener('message', function(event) {
-  debugger;
-  console.log('message handled');
   files.set(event.data.filename, {
     file: event.data.file,
     type: event.data.type
@@ -51,8 +49,6 @@ this.addEventListener('install', function(e) {
 });
 
 this.addEventListener('fetch', function(e) {
-  debugger;
-
   var response;
 
   var urlParser = /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
@@ -63,11 +59,10 @@ this.addEventListener('fetch', function(e) {
 
   if (files.has(filename)) {
     const file = files.get(filename);
-    const header = new Headers();
-    header.append('Content-Type', 'image/jpeg');
-    console.log('building response');
-    console.log(headers);
-    response = new Response(file, {
+    const headers = new Headers();
+    headers.append('Content-Type', 'image/jpeg');
+    var blob = new Blob([file.file]);
+    response = new Response(blob, {
       status: 200,
       statusText: 'OK',
       headers: headers

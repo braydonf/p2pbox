@@ -29,7 +29,6 @@ const TYPES = [
           type: options.type
         };
         console.log('about to post message');
-        debugger;
         navigator.serviceWorker.controller.postMessage(message);
 
         // To load or download the data, create an element with a url

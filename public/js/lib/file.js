@@ -15,7 +15,7 @@ function readFile(fileContainer, callback) {
   };
   // }
 
-  fileReader.readAsDataURL(data);
+  fileReader.readAsArrayBuffer(data);
 }
 
 function onFileChangeHandler(event) {

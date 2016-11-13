@@ -12,14 +12,21 @@ const messages = document.querySelector('#messages');
 /* --- INIT --- */
 window.connect();
 
-// Register the service worker
-navigator.serviceWorker.register('/serviceworker.js', { scope: "/" }).then(
-    function(registration) {
-      if (registration.installing) {
-        registration.installing.postMessage('Howdy from your installing page.');
-      }
-    },
-    function(why) {
-      console.error('Installing the worker failed!:', why);
-    }
-);
+
+/* --- LOAD SERVICE WORKER ---- */
+navigator.serviceWorker.register('/serviceworker.js', { scope: "/" }).then(function(registration) {
+  console.log('Service Worker registration successful with scope:', registration.scope);
+}).catch(function(err) {
+  console.error('ServiceWorker registration failed::', err);
+});
+
+
+/* --- TESTING ---- */
+// setInterval(function() {
+//   var message = {
+//     filename: 'cat.jpg',
+//     file: new ArrayBuffer(8)
+//   };
+//   navigator.serviceWorker.controller.postMessage(message);
+
+// }, 3000);
