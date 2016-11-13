@@ -14,6 +14,8 @@ npm start
 
 Your app should now be running on [localhost:9000](http://localhost:9000/).
 
+## Demo
+![https://github.com/rumblex/nodeknockout2016-promises/blob/master/public/demo.gif](https://github.com/rumblex/nodeknockout2016-promises/blob/master/public/demo.gif)
 
 ## Dependencies
 
