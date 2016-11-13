@@ -1,7 +1,7 @@
-P2PBox
-=======
+P2PBox - [Try it!](https://promises.2016.nodeknockout.com/)
+=================================================
 
-Send videos, images and files instantly and directly to family and friends with a simple link. It's easy to share large files with anyone. Secure collaboration made convienient with end-to-end encryption, your files are sent directly via WebRTC from your web browser to another.
+Send videos, images and files instantly and directly to family and friends with a simple link. It's easy to share large files with anyone. Secure collaboration made convenient with P2P transfer, your files are sent directly via WebRTC from your web browser to another.
 
 Make sure you have [Node.js](http://nodejs.org/) installed (uses version `4.4.5`).
 
@@ -14,6 +14,8 @@ npm start
 
 Your app should now be running on [localhost:9000](http://localhost:9000/).
 
+## Demo
+![https://github.com/rumblex/nodeknockout2016-promises/blob/master/public/demo.gif](https://github.com/rumblex/nodeknockout2016-promises/blob/master/public/demo.gif)
 
 ## Dependencies
 

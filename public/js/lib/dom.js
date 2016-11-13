@@ -59,12 +59,14 @@ const TYPES = [
           var icon = document.createElement('i');
           icon.classList.add('fa');
           icon.classList.add('fa-file');
-          console.log(icon);
           anchor.appendChild(icon);
-          console.log(anchor);
 
           anchor.href = serviceWorkerPath;
-          anchor.download = options.file.filename;
+          anchor.onclick = function(e) {
+            var click = new MouseEvent('click');
+            anchor.dispatchEvent(click);
+            e.preventDefault();
+          };
 
           const textElement = document.createElement('span');
           textElement.innerText = ' ' + options.file.filename;
