@@ -1,8 +1,12 @@
 body {
     margin: 0;
     padding: 0;
-      background: #ededed;
+    background: #ededed;
     font-family:  "Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
+}
+
+header {
+    border-bottom: 1px solid #cecece;
 }
 
 h1 {
