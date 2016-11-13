@@ -56,7 +56,7 @@ app.get('/connect/:roomId/:peerId', function(req, res, next) {
 });
 
 
-app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
   var body = fs.readFileSync(__dirname + '/index.html');
@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 
 app.use(function(req, res) {
-  var body = fs.readFileSync(__dirname + '/public/share.html');
+  var body = fs.readFileSync(__dirname + '/share.html');
   res.writeHead(200);
   res.end(body);
 });
