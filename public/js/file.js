@@ -5,9 +5,10 @@ const TYPES = [
   {
     mime: /text\/plain/,
     handler: function(options) {
-      addMessage(function(messageElement) {
-        messageElement.classList.add('message');
-        messageElement.innerText = options.text;
+      addMessage(options, function(messageElement) {
+        const textElement = document.createElement('span');
+        textElement.innerText = options.text;
+        messageElement.appendChild(textElement);
       })
     }
   },
@@ -15,14 +16,15 @@ const TYPES = [
   {
     mime: /image\//,
     handler: function(options) {
-      addMessage(function(messageElement) {
+      addMessage(options, function(messageElement) {
         const img = document.createElement('img');
         const anchor = document.createElement('a');
+        messageElement.classList.add('img');
 
-        anchor.href = options.data;
-        anchor.download = options.filename;
+        anchor.href = options.file.data;
+        anchor.download = options.file.filename;
         anchor.appendChild(img);
-        img.src = options.data;
+        img.src = options.file.data;
         messageElement.appendChild(anchor)
       })
     }
@@ -31,7 +33,7 @@ const TYPES = [
   {
     mime: /.*/,
     handler: function(options) {
-      addMessage(function(messageElement) {
+      addMessage(options, function(messageElement) {
         const anchor = document.createElement('a');
 
         anchor.href = options.data;
@@ -45,15 +47,15 @@ const TYPES = [
 
 function readFile(fileContainer, callback) {
   const fileReader = new FileReader();
-  var data = fileContainer.data;
+  var data = fileContainer.file.data;
 
   if (data instanceof ArrayBuffer) {
-    data = new Blob([data], {type: fileContainer.type || 'application/octet-stream'});
+    data = new Blob([data], {type: fileContainer.file.type || 'application/octet-stream'});
   }
 
   // if (data instanceof Blob) {
   fileReader.onload = function() {
-    fileContainer.data = fileReader.result;
+    fileContainer.file.data = fileReader.result;
     callback(fileContainer);
   };
   // }
@@ -74,8 +76,13 @@ function onFileChangeHandler(event) {
   }])
 }
 
-function addMessage(callback) {
+function addMessage(options, callback) {
   const messageElement = document.createElement('div');
+  const peerIdElement = document.createElement('div');
+  console.log(options.peerId);
+  peerIdElement.innerText = String(options.peerId);
+  messageElement.appendChild(peerIdElement);
+  messageElement.classList.add('message');
   callback(messageElement);
   messages.appendChild(messageElement);
 }

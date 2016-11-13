@@ -32,7 +32,7 @@ window.connect = function() {
 
   peer.on('open', function(id) {
     console.log('listening:', id);
-    
+
     // bug or something in firefox - this happens too soon
     connectPeers(function() {
       submitClickHandler = function(event) {
@@ -53,6 +53,7 @@ window.connect = function() {
 
 function onDataHandler(data) {
   data.forEach(function(datum) {
+    datum.peerId = peer.id;
     const type = TYPES.filter(function(type) {
       return type.mime.test(datum.type);
     })[0];
@@ -62,7 +63,7 @@ function onDataHandler(data) {
     Object.keys(datum).forEach(function(key) {
       switch (key) {
         case 'file':
-          readFile(datum.file, appendMessage);
+          readFile(datum, appendMessage);
           break;
         case 'text':
           appendMessage(datum);
