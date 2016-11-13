@@ -133,3 +133,8 @@ body.peers.room #waiting {
     width: 100%;
     font-size:32px;
 }
+
+.message .peer-id {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
