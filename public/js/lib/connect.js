@@ -13,7 +13,7 @@ if (/^\/share\//.test(window.location.pathname)) {
   console.log('In room', roomId);
 }
 
-const apiUrlBase = 'http://' + hostname + ':' + port;
+const apiUrlBase = (secure ? 'https://' : 'http://') + hostname + ':' + port;
 
 var peerIds, peer, pollId;
 
