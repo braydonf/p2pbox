@@ -2,6 +2,7 @@
 
 const hostname = window.location.hostname;
 const port = window.location.port || 80;
+const secure = /^https/.test(window.location.protocol);
 
 /* --- INIT --- */
 var roomId = window.roomId = null;
@@ -16,7 +17,7 @@ const apiUrlBase = 'http://' + hostname + ':' + port;
 var peerIds, peer, pollId;
 
 window.connect = function() {
-  peer = new Peer(random(32), {host: hostname, port: port, path: '/peerjs'});
+  peer = new Peer(random(32), {host: hostname, port: port, path: '/peerjs', secure: secure});
 
   console.log('I am ', peer.id);
   window.peer = peer;
