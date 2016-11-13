@@ -10,6 +10,9 @@ const app = express();
 const ExpressPeerServer = require('peer').ExpressPeerServer;
 const cors = require('cors');
 
+// hardcoded hostname (fixme)
+const HOSTNAME = 'promises.2016.nodeknockout.com';
+
 app.set('port', (process.env.PORT || 9000));
 const port = app.get('port');
 
@@ -18,7 +21,7 @@ app.use('/.well-known', express.static(__dirname + '/.well-known'));
 
 app.use(function(req, res, next) {
   if (req.headers['x-forwarded-proto'] === 'http') {
-    var httpsUrl = url.format({ pathname: req.path, hostname: req.hostname, protocol: 'https' });
+    var httpsUrl = url.format({ pathname: req.path, hostname: HOSTNAME, protocol: 'https' });
     res.redirect(httpsUrl);
   } else {
     next();
