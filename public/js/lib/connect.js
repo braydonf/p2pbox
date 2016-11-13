@@ -1,8 +1,9 @@
 'use strict';
 
 const hostname = window.location.hostname;
-const port = window.location.port || 80;
 const secure = /^https/.test(window.location.protocol);
+const port = window.location.port || secure ? 443 : 80;
+
 
 /* --- INIT --- */
 var roomId = window.roomId = null;
