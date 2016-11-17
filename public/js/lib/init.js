@@ -13,14 +13,6 @@ const shareUrlInput = document.querySelector('#shareurl > input');
 
 navigator.serviceWorker.register('/serviceworker.js', {scope: "/"}).then(function(registration) {
   console.log('Service Worker registration successful with scope:', registration.scope);
-  if (!navigator.serviceWorker.controller || !registration.active) {
-    console.log('reloading...');
-    return window.location.reload();
-  }
-
-  if (!navigator.serviceWorker.controller) {
-    console.error('The app is probably broken - try to refresh... thanks! ¯\\_(ツ)_/¯')
-  }
 }).catch(function(err) {
   console.error('ServiceWorker registration failed::', err);
 });

@@ -1,5 +1,9 @@
 var files = new Map();
 
+self.addEventListener('activate', function(event) {
+  event.waitUntil(self.clients.claim());
+});
+
 this.addEventListener('message', function(event) {
   console.log('message filename:', event.data.filename);
   const filename = event.data.filename;
