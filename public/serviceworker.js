@@ -13,7 +13,7 @@ this.addEventListener('message', function(event) {
 
 
 this.addEventListener('install', function(e) {
-  const getCaches = caches.open('shell-v1').then(function(cache) {
+  const getCaches = caches.open('v1').then(function(cache) {
     return cache.addAll([]);
   });
 
@@ -43,6 +43,10 @@ this.addEventListener('fetch', function(e) {
       status: 200,
       statusText: 'OK',
       headers: headers
+    });
+    var cacheResponse = response.clone();
+    caches.open('v1').then(function(cache) {
+      cache.put(e.request, cacheResponse);
     });
   } else {
     response = caches.match(e.request).then(function(response) {
