@@ -36,6 +36,7 @@ const TYPES = [
 
           anchor.onclick = function(e) {
             var click = new MouseEvent('click');
+            anchor.onclick = null;
             anchor.dispatchEvent(click);
             e.preventDefault();
           };
@@ -64,6 +65,7 @@ const TYPES = [
           anchor.href = serviceWorkerPath;
           anchor.onclick = function(e) {
             var click = new MouseEvent('click');
+            anchor.onclick = null;
             anchor.dispatchEvent(click);
             e.preventDefault();
           };
@@ -96,7 +98,7 @@ function addMessage(options, callback) {
     messageElement.appendChild(peerIdElement);
     peerIdElement.innerText = String(options.peerId);
   }
-  
+
   peerIdElement.classList.add('peer-id');
 
   callback(messageElement);
